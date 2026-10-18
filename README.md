@@ -1,18 +1,17 @@
-# DGM-MAT Agents
+# DGM-MAT-Agents — Standalone Agent Package
 
-Standalone agent implementations extracted from DGM-MAT Core.
+## Purpose
+Isolated, reusable agent implementations that can be invoked by the sovereign DGM-MAT core through explicit public contracts.
 
-## Boundary
+## Boundaries
+- DGM-MAT core remains the only brain and owns orchestration, policy, permissions, task state and durable memory.
+- Agents implement bounded capabilities; they must not create a parallel orchestrator or bypass approvals.
+- Depend on DGM-Contracts for public interfaces and injected ports; avoid imports from core internals.
+- Keep original implementations in DGM-MAT until all consumers migrate and the full regression suite is green.
+- No automatic repository cloning.
 
-Agents depend only on `DGM-Contracts` for public event and service-port types. Core-specific capabilities are injected by adapters owned by DGM-MAT Core.
+## Allowed contents
+Agent implementations, capability metadata, injected-port adapters, unit/contract tests and package documentation.
 
-The satellite intentionally contains no `core.*` imports.
-
-## Current migration status
-
-- Source preserved in DGM-MAT during validation.
-- Standalone package copied from the validated Core agent set.
-- Provider and autonomy services use injected ports.
-- Logging uses the public `AgentLogger` port.
-- Local tests and compile validation pass.
-- Source deletion from DGM-MAT is deferred until integration consumers are migrated and the full DGM-MAT regression suite is green.
+## Validation
+Run compile checks, unit tests, contract tests and integration/regression tests in DGM-MAT. Document every consumer and migration state before removing duplicated source from the core.
